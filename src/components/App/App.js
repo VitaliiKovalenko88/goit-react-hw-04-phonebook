@@ -1,9 +1,26 @@
-import { Component } from 'react';
+import { Component, useState, useEffect } from 'react';
 import { nanoid } from 'nanoid';
 import ContactForm from '../ContactForm/ContactForm';
 import Filter from '../Filter/Filter';
 import ContactList from '../ContactList/ContactList';
 import css from './App.module.css';
+
+// const Appc = () => {
+//   const [contacts, setContacts] = useState([]);
+//   const [filter, setFilter] = useState('');
+
+//   useEffect(() => {
+//     const contactsStorage = localStorage.getItem('contacts');
+//     const parseContact = JSON.parse(contactsStorage);
+//     if (parseContact) setContacts(parseContact);
+//   }, []);
+
+//   useEffect(() => {
+//     localStorage.setItem(('contacts', JSON.stringify(contacts)))
+//   }, [contacts])
+//   const generateId = () => nanoid()
+
+// }
 
 class App extends Component {
   state = {
