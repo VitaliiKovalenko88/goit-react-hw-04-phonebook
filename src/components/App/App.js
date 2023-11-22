@@ -5,7 +5,7 @@ import Filter from '../Filter/Filter';
 import ContactList from '../ContactList/ContactList';
 import css from './App.module.css';
 
-export default class App extends Component {
+class App extends Component {
   state = {
     contacts: [],
     filter: '',
@@ -93,3 +93,4 @@ export default class App extends Component {
     );
   }
 }
+export default App;
