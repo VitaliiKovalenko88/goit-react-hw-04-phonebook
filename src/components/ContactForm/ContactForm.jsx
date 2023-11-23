@@ -1,69 +1,75 @@
-import { Component } from 'react';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 import css from './ContactForm.module.css';
 
-export default class Form extends Component {
-  state = {
-    name: '',
-    number: '',
-  };
+const Form = ({ onSubmit }) => {
+  const [name, setName] = useState('');
+  const [number, setNumber] = useState('');
 
-  handleChange = e => {
+  const handleChange = e => {
     const { value, name } = e.currentTarget;
-    this.setState({ [name]: value });
+    switch (name) {
+      case 'name':
+        setName(value);
+        break;
+      case 'number':
+        setNumber(value);
+        break;
+      default:
+        return;
+    }
   };
 
-  handleSubmit = e => {
+  const handleSubmit = e => {
     e.preventDefault();
 
-    const { name, number } = this.state;
+    onSubmit(name, number);
 
-    this.props.onSubmit(name, number);
-
-    this.reset();
+    reset();
   };
 
-  reset = () => {
-    this.setState({ name: '', number: '' });
+  const reset = () => {
+    setName('');
+    setNumber('');
   };
 
-  render() {
-    return (
-      <>
-        <form className={css.formContainer} onSubmit={this.handleSubmit}>
-          <label className={css.lbl}>
-            Name
-            <input
-              className={css.inp}
-              type="text"
-              name="name"
-              value={this.state.name}
-              onChange={this.handleChange}
-              required
-            />
-          </label>
+  return (
+    <>
+      <form className={css.formContainer} onSubmit={handleSubmit}>
+        <label className={css.lbl}>
+          Name
+          <input
+            className={css.inp}
+            type="text"
+            name="name"
+            value={name}
+            onChange={handleChange}
+            required
+          />
+        </label>
 
-          <label className={css.lbl}>
-            Number
-            <input
-              className={css.inp}
-              type="tel"
-              name="number"
-              value={this.state.number}
-              onChange={this.handleChange}
-              required
-            />
-          </label>
+        <label className={css.lbl}>
+          Number
+          <input
+            className={css.inp}
+            type="tel"
+            name="number"
+            value={number}
+            onChange={handleChange}
+            required
+          />
+        </label>
 
-          <button className={css.btn} type="submit">
-            Add contact
-          </button>
-        </form>
-      </>
-    );
-  }
-}
+        <button className={css.btn} type="submit">
+          Add contact
+        </button>
+      </form>
+    </>
+  );
+};
 
 Form.propTypes = {
   onSubmit: PropTypes.func.isRequired,
 };
+
+export default Form;
